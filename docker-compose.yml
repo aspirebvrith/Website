@@ -1,0 +1,55 @@
+
+services:
+  # ===== DEVELOPMENT =====
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - backend
+    networks:
+      - aspire-network
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+      - PORT=5000
+      - MONGO_URI=mongodb://mongo:27017/aspireclub
+    depends_on:
+      - mongo
+    networks:
+      - aspire-network
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=aspireclub
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=your_secure_password
+    networks:
+      - aspire-network
+
+# Named volumes for persistent data
+volumes:
+  mongodb_data:
+    name: aspireclub_mongodb_data
+
+# Custom network for all services
+networks:
+  aspire-network:
+    driver: bridge
