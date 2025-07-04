@@ -1,20 +1,19 @@
-FROM node:20-alpine AS development
+# Dockerfile for A.S.P.I.R.E BVRITH - Development
+FROM node:20
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Install dependencies
-# Copy package.json and package-lock.json (or npm-shrinkwrap.json)
-COPY package*.json ./
-# Prefer npm ci for cleaner installs if package-lock.json is present and up-to-date
+# Copy package files and install dependencies
+# This uses the cache unless package files change
+COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy the rest of the application code
+# Copy the rest of your app's source code
 COPY . .
 
-# Expose port 3000 for Next.js dev server
+# Expose the port Vite runs on
 EXPOSE 3000
 
-# Start Next.js development server
-# The -H 0.0.0.0 flag is important to make the server accessible from outside the container
-CMD ["npm", "run", "dev", "--", "-H", "0.0.0.0"]
+# The command to start the dev server will be in docker-compose.yml
+
