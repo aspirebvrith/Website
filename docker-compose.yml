@@ -1,55 +1,21 @@
-
+version: '3.8'
 services:
   # ===== DEVELOPMENT =====
   frontend:
-    build: ./frontend
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
     ports:
       - "3000:3000"
+    # Mount the source code for hot-reloading
+    # Use a named volume for node_modules to keep it isolated in the container
     volumes:
       - ./frontend:/app
       - /app/node_modules
-    environment:
-      - NODE_ENV=development
-    depends_on:
-      - backend
-    networks:
-      - aspire-network
+    # The command to start the dev server. Vite config handles host, port, and file watching.
+    command: npm run dev
 
-  backend:
-    build: ./backend
-    ports:
-      - "5000:5000"
-    volumes:
-      - ./backend:/app
-      - /app/node_modules
-    environment:
-      - NODE_ENV=development
-      - PORT=5000
-      - MONGO_URI=mongodb://mongo:27017/aspireclub
-    depends_on:
-      - mongo
-    networks:
-      - aspire-network
-
-  mongo:
-    image: mongo:latest
-    ports:
-      - "27017:27017"
-    volumes:
-      - mongodb_data:/data/db
-    environment:
-      - MONGO_INITDB_DATABASE=aspireclub
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=your_secure_password
-    networks:
-      - aspire-network
 
 # Named volumes for persistent data
-volumes:
-  mongodb_data:
-    name: aspireclub_mongodb_data
 
 # Custom network for all services
-networks:
-  aspire-network:
-    driver: bridge
