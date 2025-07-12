@@ -2,10 +2,12 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
 import Home from "./pages/Home";
 import About from "./components/About";
+import Statistics from "./components/Statistics";
 import FAQ from "./components/FAQ";
 import Footer from "./components/Footer";
 import CodeOfConduct from "./pages/CodeOfConduct";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import RulesRegulations from "./pages/RulesRegulations";
 import Countdown from "./pages/Countdown";
 // import "./App.css"; // Only if you have custom styles
 
@@ -58,14 +60,6 @@ function Navbar() {
             </button>
           </li>
         ))}
-        <li>
-          <Link 
-            to="/countdown" 
-            className="uppercase font-semibold px-4 py-2 rounded-lg transition-all duration-300 text-white hover:bg-white/10 hover:scale-105 cursor-pointer"
-          >
-            Countdown
-          </Link>
-        </li>
       </ul>
     </nav>
   );
@@ -116,11 +110,14 @@ function MainPage() {
   return (
     <div className="bg-[#1A1A1A] font-sans">
       <main>
-        <section id="home" className="min-h-screen pt-20">
+        <section id="home" className="min-h-screen">
           <Home />
         </section>
         <section id="about" className="min-h-screen py-16">
           <About />
+        </section>
+        <section id="statistics" className="py-16">
+          <Statistics />
         </section>
         <section id="faq" className="min-h-screen py-16">
           <FAQ />
@@ -141,6 +138,7 @@ export default function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/codeofconduct" element={<CodeOfConduct />} />
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+          <Route path="/rules" element={<RulesRegulations />} />
           <Route path="/countdown" element={<Countdown />} />
         </Routes>
       </div>
