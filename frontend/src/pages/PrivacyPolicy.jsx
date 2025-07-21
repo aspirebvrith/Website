@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export default function PrivacyPolicy() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="bg-[#1A1A1A] min-h-screen py-20 px-6 md:px-20">
       <div className="max-w-4xl mx-auto">
