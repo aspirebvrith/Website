@@ -96,15 +96,6 @@ export default function FAQ() {
             ))}
           </div>
         </div>
-        
-        {/* Call to action */}
-        <div className="text-center mt-16">
-          <h3 className="text-2xl font-bold text-white mb-4">Still have questions?</h3>
-          <p className="text-gray-300 mb-6">Feel free to reach out to us directly!</p>
-          <button className="px-8 py-3 bg-white text-black font-semibold rounded-xl hover:bg-gray-200 transition-all duration-300">
-            Contact Us
-          </button>
-        </div>
       </div>
     </section>
   );

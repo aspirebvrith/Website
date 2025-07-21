@@ -9,11 +9,13 @@ import CodeOfConduct from "./pages/CodeOfConduct";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import RulesRegulations from "./pages/RulesRegulations";
 import Countdown from "./pages/Countdown";
+import Gallery from "./pages/Gallery";
 // import "./App.css"; // Only if you have custom styles
 
 const navItems = [
   { name: "About", id: "about" },
   { name: "FAQ", id: "faq" },
+  { name: "Gallery", id: "gallery", isPage: true },
 ];
 
 function Navbar() {
@@ -37,6 +39,14 @@ function Navbar() {
     }
   };
 
+  const handleNavClick = (item) => {
+    if (item.isPage) {
+      navigate('/gallery');
+    } else {
+      handleScrollTo(item.id);
+    }
+  };
+
   const handleLogoClick = () => {
     navigate('/');
   };
@@ -53,7 +63,7 @@ function Navbar() {
         {navItems.map((item) => (
           <li key={item.id}>
             <button
-              onClick={() => handleScrollTo(item.id)}
+              onClick={() => handleNavClick(item)}
               className="uppercase font-semibold px-4 py-2 rounded-lg transition-all duration-300 text-white hover:bg-white/10 hover:scale-105 cursor-pointer"
             >
               {item.name}
@@ -140,6 +150,7 @@ export default function App() {
           <Route path="/privacypolicy" element={<PrivacyPolicy />} />
           <Route path="/rules" element={<RulesRegulations />} />
           <Route path="/countdown" element={<Countdown />} />
+          <Route path="/gallery" element={<Gallery />} />
         </Routes>
       </div>
     </Router>
